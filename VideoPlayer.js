@@ -999,27 +999,28 @@ export default class VideoPlayer extends Component {
     );
   }
 
+  setVolume (muted) {
+    this?.setState?.({
+      muted
+    })
+  }
+
   /**
    * Render the volume slider and attach the pan handlers
    */
   renderVolume() {
+    this.props.setMuted((muted)=>this.setVolume(muted))
     return (
       <View style={styles.volume.container}>
-        {/* <View
-          style={[styles.volume.fill, {width: this.state.volumeFillWidth}]}
-        />
-        <View
-          style={[styles.volume.track, {width: this.state.volumeTrackWidth}]}
-        /> */}
         <TouchableOpacity
-          style={[styles.volume.handle, {left: 2}]}
-          onPress={()=> this.setState({
-            muted: !this.state.muted
-          })}
+          style={[styles.volume.handle, {right: -30}]}
+          onPress={()=> {
+            this.props?.handleVolume(this.state.muted)
+          }}
           >
           <Image
             style={styles.volume.icon}
-            source={muted?require('./assets/img/volume.png'):require('./assets/img/mute.png')}
+            source={this.state.muted?require('./assets/img/mute.png'):require('./assets/img/unmute.png')}
           />
         </TouchableOpacity>
       </View>
