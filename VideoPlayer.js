@@ -12,6 +12,7 @@ import {
   Image,
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import padStart from 'lodash/padStart';
 
@@ -1004,20 +1005,23 @@ export default class VideoPlayer extends Component {
   renderVolume() {
     return (
       <View style={styles.volume.container}>
-        <View
+        {/* <View
           style={[styles.volume.fill, {width: this.state.volumeFillWidth}]}
         />
         <View
           style={[styles.volume.track, {width: this.state.volumeTrackWidth}]}
-        />
-        <View
-          style={[styles.volume.handle, {left: this.state.volumePosition}]}
-          {...this.player.volumePanResponder.panHandlers}>
+        /> */}
+        <TouchableOpacity
+          style={[styles.volume.handle, {left: 2}]}
+          onPress={()=> this.setState({
+            muted: !this.state.muted
+          })}
+          >
           <Image
             style={styles.volume.icon}
-            source={require('./assets/img/volume.png')}
+            source={muted?require('./assets/img/volume.png'):require('./assets/img/mute.png')}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
